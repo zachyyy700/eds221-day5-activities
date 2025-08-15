@@ -1,0 +1,43 @@
+---
+title: "us_tilapia_imports"
+author: "zachyloo"
+date: "2025-08-15"
+output: html_document
+---
+
+# United States Tilapia Imports
+
+```{r}
+library(tidyverse)
+library(here)
+library(janitor)
+```
+
+```{r}
+# read data
+us_tilapia_imports <- read_csv(here::here("data/us_tilapia_imports.csv"))
+```
+
+```{r}
+# explore data
+names(us_tilapia_imports)
+summary(us_tilapia_imports)
+skimr::skim(us_tilapia_imports)
+```
+
+```{r}
+# pivot into long df
+us_tilapia_imports_long <- us_tilapia_imports |> 
+  pivot_longer(cols = -country, 
+               names_to = "year")
+
+# change year col to numeric
+us_tilapia_imports_long <- us_tilapia_imports_long |> 
+  mutate(year = as.numeric(year))
+```
+
+```{r}
+# find total US imports by year
+
+```
+
