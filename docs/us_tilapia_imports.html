@@ -924,7 +924,7 @@ us_tilapia_imports_long &lt;- us_tilapia_imports |&gt;
 us_tilapia_imports_long &lt;- us_tilapia_imports_long |&gt; 
   mutate(year = as.numeric(year))</code></pre>
 <pre class="r"><code># find total US imports by year 
-yearly_tilapia_tot &lt;- us_tilapia_imports_long |&gt; #FIXME
+yearly_tilapia_tot &lt;- us_tilapia_imports_long |&gt; 
   group_by(year) |&gt; # squish all &#39;years&#39; together into ONE row
   summarize(us_import_value = sum(value, na.rm = TRUE))</code></pre>
 <pre class="r"><code># plot dat
@@ -942,6 +942,7 @@ ggsave(here::here(&quot;figs&quot;, &quot;us_tilapia_import.png&quot;), height =
 <pre class="r"><code># ecuador, honduras, costa rica, mexico subset 
 country_list &lt;- c(&quot;Ecuador&quot;, &quot;Honduras&quot;, &quot;Costa Rica&quot;, &quot;Mexico&quot;)
 
+# filter to related countries using long 
 tilapia_long_subset &lt;- us_tilapia_imports_long |&gt; 
   dplyr::filter(country == country_list)</code></pre>
 <pre class="r"><code># plot four lines for each country, representing us imports from each country

@@ -65,8 +65,9 @@ ggsave(here::here("figs", "us_tilapia_import.png"), height = 6, width = 7)
 # ecuador, honduras, costa rica, mexico subset 
 country_list <- c("Ecuador", "Honduras", "Costa Rica", "Mexico")
 
+# filter to related countries using long 
 tilapia_long_subset <- us_tilapia_imports_long |> 
-  dplyr::filter(country == country_list)
+  dplyr::filter(country %in% country_list)
 ```
 
 ```{r}
