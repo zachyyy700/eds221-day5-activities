@@ -1,0 +1,50 @@
+---
+title: "runoff_volumes"
+author: "zachyloo"
+date: "2025-08-15"
+output: html_document
+---
+
+# Calculating Runoff Volumes
+
+```{r}
+library(tidyverse)
+library(here)
+```
+
+```{r}
+# source runoff rscript
+source(here::here("src/storm_runoff.R"))
+```
+
+```{r}
+# use sourced function
+
+# create range for impervious frac values
+imp_range <- seq(from = 0.6, to = 0.8, by = 0.01)
+
+#run function & store
+vol_values <- predict_runoff(imp_range, 182)
+
+runoff_df <- data.frame(imp_range, vol_values)
+
+```
+
+```{r}
+# plot
+library(ggtext)
+ggplot(data = runoff_df, aes(x = imp_range, y = vol_values)) +
+  geom_line(color = "#49be25", linewidth = 0.9) +
+  geom_point(color = "#2596be", size = 2.5) +
+  labs(title = "Runoff Volume and Impervious Surface Cover",
+       x = "I<sub>A</sub>",
+       y = "Volume (ft<sup>3</sup>)") +
+  theme_light() +
+  theme(axis.title.x = element_markdown(),
+        axis.title.y = element_markdown()) 
+```
+
+```{r}
+ggsave(here::here("figs", "runoff_plot.png"), height = 6, width = 7)
+```
+
